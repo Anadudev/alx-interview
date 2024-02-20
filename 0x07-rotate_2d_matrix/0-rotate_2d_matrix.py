@@ -1,10 +1,7 @@
 #!/usr/bin/python3
-""" typing method for type hinting"""
-
-from typing import List, Any
 
 
-def rotate_2d_matrix(matrix: List[List[Any]]) -> None:
+def rotate_2d_matrix(matrix):
     """function that rotates a 2d array clockwise
 
     Args:
