@@ -3,33 +3,7 @@
 a given total amount, given a list of coin denominations"""
 
 
-def handler(coins, total, index=0, ballance=0, tracker=1):
-    """handler function that calculates the fewest number
-        of addition to get a total coin
-
-    Args:
-        coins (List[int]): list representing coins
-        total (int): represents target value
-        index (int, optional): tracks position in coins. Defaults to 0.
-        ballance (int, optional): tracks total gotten coins. Defaults to 0.
-        tracker (int, optional): tracks total additions. Defaults to 1.
-
-    Returns:
-        _type_: _description_
-    """
-    if ballance > total:
-        ballance -= coins[index]
-        tracker -= 1
-        index += 1
-    elif ballance < total:
-        ballance += coins[index]
-        tracker += 1
-    elif ballance == total:
-        return tracker
-    return handler(coins, total, index, ballance, tracker)
-
-
-def makeChange(coins, total) -> int:
+def makeChange(coins, total):
     """function that calculates
 
     Args:
@@ -41,12 +15,20 @@ def makeChange(coins, total) -> int:
     """
     if total <= 0:
         return 0
-    coins.sort()
-    coins.reverse()
-    for i, j in enumerate(coins):
-        if j <= total:
-            break
-    try:
-        return handler(coins[i:], total, 0, coins[i])
-    except IndexError:
-        return -1
+    coins.sort(reverse=True)
+    i = 0
+    getter = coins[i]
+    calc = 0
+    while i < len(coins):
+        if getter == total:
+            return calc + 1
+        if coins[i] == 0:
+            return -1
+        if getter < total:
+            getter += coins[i]
+            calc += 1
+        if getter > total:
+            getter -= coins[i]
+            calc -= 1
+            i += 1
+    return -1
