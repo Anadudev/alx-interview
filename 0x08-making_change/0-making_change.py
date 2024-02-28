@@ -22,7 +22,7 @@ def makeChange(coins, total):
     while i < len(coins):
         if getter == total:
             return calc + 1
-        if coins[i] == 0:
+        if coins[i] <= 0:
             return -1
         if getter < total:
             getter += coins[i]
