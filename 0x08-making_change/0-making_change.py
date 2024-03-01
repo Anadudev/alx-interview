@@ -15,6 +15,8 @@ def makeChange(coins, total):
     """
     if total <= 0:
         return 0
+    if len(coins) <= 0:
+        return -1
     coins.sort(reverse=True)
     i = 0
     getter = coins[i]
