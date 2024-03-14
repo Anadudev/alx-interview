@@ -33,7 +33,7 @@ Third round: 1
 Ben wins because there are no prime numbers for Maria to choose """
 
 
-def get_multiples(x, nums):
+def getMultiples(x, nums):
     """_summary_
 
     Args:
@@ -45,7 +45,6 @@ def get_multiples(x, nums):
     for i in nums:
         if i in multiple:
             nums.remove(i)
-    # return nums
 
 
 def isPrime(num):
@@ -85,8 +84,10 @@ def isWinner(x, nums):
     for _ in range(x):
         if len(nums) == 1 and nums[0] == 1:
             break
+        if len(nums) == 0:
+            return None
         n = 0 if n > 0 else 1
         for num in nums:
             if isPrime(num):
-                get_multiples(num, nums)
+                getMultiples(num, nums)
     return players[n]
