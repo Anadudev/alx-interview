@@ -77,6 +77,8 @@ def isWinner(x, nums):
     Returns:
         _type_: _description_
     """
+    if not nums or x < 1:
+        return None
     players = ["maria", "ben"]
     n = 1
     nums.sort()
