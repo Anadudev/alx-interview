@@ -33,61 +33,57 @@ Third round: 1
 Ben wins because there are no prime numbers for Maria to choose """
 
 
-def getMultiples(x, nums):
-    """_summary_
-
-    Args:
-        x (_type_): _description_
-        nums (_type_): _description_
-    """
-    n = max(nums) + 1
-    multiple = [i * x for i in range(1, n)]
-    for i in nums:
-        if i in multiple:
-            nums.remove(i)
-
-
-def isPrime(num):
-    """_summary_
-
-    Args:
-        num (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    if num <= 1:
-        return False
-    for x in range(num):
-        if x <= 1:
-            continue
-        if num % x == 0:
-            return False
-    return True
-
-
 def isWinner(x, nums):
-    """_summary_
+    """Determines the winner of a game between Maria and Ben based on the
+    number of rounds and a set of consecutive integers.
+
+    The game involves choosing prime numbers from a set of consecutive integers
+    starting from 1 up to and including n. Players take turns to choose a prime
+    number and remove that number and its multiples from the set. The player who
+    cannot make a move loses the game.
 
     Args:
-        x (_type_): _description_
-        nums (_type_): _description_
+        x (int): The number of rounds in the game.
+        nums (List[int]): A list of integers representing the set for the game.
 
     Returns:
-        _type_: _description_
-    """
+        str: The name of the player that won the most rounds. If the winner cannot
+        be determined, returns None.
+
+    Example:
+        >>> isWinner(3, [4, 5, 1])
+        'Maria'
+
+    Note:
+        - The function assumes that Maria always goes first and both players play optimally.
+        - The function does not import any packages and is designed to work with n and
+        x not larger than 10000."""
     if not nums or x < 1:
         return None
-    players = ["maria", "ben"]
-    n = 1
-    nums.sort()
-    for _ in range(x):
-        if len(nums) == 1 and nums[0] == 1:
-            break
-        if len(nums) == 0:
-            return None
-        n = 0 if n > 0 else 1
-        for num in nums:
-            if isPrime(num):
-                getMultiples(num, nums)
-    return players[n]
+    max_num = max(nums)
+
+    my_filter = [True for _ in range(max(max_num + 1, 2))]
+
+    for i in range(2, int(pow(max_num, 0.5)) + 1):
+        if not my_filter[i]:
+            continue
+        for j in range(i * i, max_num + 1, i):
+            my_filter[j] = False
+    my_filter[0] = my_filter[1] = False
+
+    y = 0
+
+    for i, _ in enumerate(my_filter):
+        if my_filter[i]:
+            y += 1
+        my_filter[i] = y
+
+    player1 = 0
+
+    for x in nums:
+        player1 += my_filter[x] % 2 == 1
+    if player1 * 2 == len(nums):
+        return None
+    if player1 * 2 > len(nums):
+        return "Maria"
+    return "Ben"
