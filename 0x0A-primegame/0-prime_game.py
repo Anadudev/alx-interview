@@ -39,24 +39,26 @@ def isWinner(x, nums):
 
     The game involves choosing prime numbers from a set of consecutive integers
     starting from 1 up to and including n. Players take turns to choose a prime
-    number and remove that number and its multiples from the set. The player who
-    cannot make a move loses the game.
+    number and remove that number and its multiples from the set. The player
+    who cannot make a move loses the game.
 
     Args:
         x (int): The number of rounds in the game.
         nums (List[int]): A list of integers representing the set for the game.
 
     Returns:
-        str: The name of the player that won the most rounds. If the winner cannot
-        be determined, returns None.
+        str: The name of the player that won the most rounds. If the
+        winner cannot be determined, returns None.
 
     Example:
         >>> isWinner(3, [4, 5, 1])
         'Maria'
 
     Note:
-        - The function assumes that Maria always goes first and both players play optimally.
-        - The function does not import any packages and is designed to work with n and
+        - The function assumes that Maria always goes first and both players
+        play optimally.
+        - The function does not import any packages and is designed to work
+        with n and
         x not larger than 10000."""
     if not nums or x < 1:
         return None
